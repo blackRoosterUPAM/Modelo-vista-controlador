@@ -9,12 +9,15 @@
     <base href="" />
     <title>UPAM</title>
     <meta charset="utf-8" />
-    <meta name="description" content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+    <meta name="description"
+        content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
+    <meta name="keywords"
+        content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_es" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Metronic - Bootstrap Admin Template, HTML, VueJS, React, Angular. Laravel, Asp.Net Core, Ruby on Rails, Spring Boot, Blazor, Django, Express.js, Node.js, Flask Admin Dashboard Theme & Template" />
+    <meta property="og:title"
+        content="Metronic - Bootstrap Admin Template, HTML, VueJS, React, Angular. Laravel, Asp.Net Core, Ruby on Rails, Spring Boot, Blazor, Django, Express.js, Node.js, Flask Admin Dashboard Theme & Template" />
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
@@ -30,33 +33,33 @@
     <link href="assets/css/style.bundle.css" rel="stylesheet type=" text/css" />
     <!--end::Global Stylesheets Bundle-->
     <script>
-        // Frame-busting to prevent the site from being loaded within a frame without permission (click-jacking)
-        if (window.top != window.self) {
-            window.top.location.replace(window.self.location.href);
-        }
+    // Frame-busting to prevent the site from being loaded within a frame without permission (click-jacking)
+    if (window.top != window.self) {
+        window.top.location.replace(window.self.location.href);
+    }
     </script>
 </head>
 
 <body id="kt_app_body" data-kt-app-header-fixed-mobile="true" data-kt-app-toolbar-enabled="true" class="app-default">
     <!--begin::Theme mode setup on page load-->
     <script>
-        var defaultThemeMode = "light";
-        var themeMode;
-        if (document.documentElement) {
-            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+    var defaultThemeMode = "light";
+    var themeMode;
+    if (document.documentElement) {
+        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+        } else {
+            if (localStorage.getItem("data-bs-theme") !== null) {
+                themeMode = localStorage.getItem("data-bs-theme");
             } else {
-                if (localStorage.getItem("data-bs-theme") !== null) {
-                    themeMode = localStorage.getItem("data-bs-theme");
-                } else {
-                    themeMode = defaultThemeMode;
-                }
+                themeMode = defaultThemeMode;
             }
-            if (themeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            }
-            document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }
     </script>
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
@@ -94,7 +97,8 @@
                                 <div class="page-title d-flex align-items-center me-3">
                                     <img alt="Logo" src="assets/media/svg/misc/layer.svg" class="h-60px me-5" />
                                     <!--begin::Title-->
-                                    <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
+                                    <h1
+                                        class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
                                         POFESOR DE TIEMPO COMPLETO PTC
                                     </h1>
                                     <!--end::Title-->
@@ -122,25 +126,37 @@
                                     <div class="card mb-5 mb-xl-10">
                                         <div class="card-body pt-9 pb-0">
                                             <!--begin::Navs-->
-                                            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                                            <ul
+                                                class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                                                 <!--begin::Nav item-->
                                                 <li class="nav-item mt-2">
-                                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="#">Validación de Documentos</a>
+                                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 active"
+                                                        href="#">Validación de Documentos</a>
                                                 </li>
                                                 <!--end::Nav item-->
                                                 <!--begin::Nav item-->
                                                 <li class="nav-item mt-2">
-                                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="?c=contacto&a=show_sede">Contacto de la Sede</a>
+                                                    <a class="nav-link text-active-primary ms-0 me-10 py-5 "
+                                                        href="?c=contacto&a=show_sede">Contacto de la Sede</a>
                                                 </li>
                                                 <!--end::Nav item-->
                                             </ul>
                                             <!--begin::Navs-->
                                         </div>
                                     </div>
+                                    <!--begin::search-->
+                                    <div class="d-flex align-items-center position-relative my-2">
+                                        <i class="ki-outline ki-magnifier fs-2 position-absolute ms-3"></i>
+                                        <input type="text" id="searchInput"
+                                            class="form-control form-control-solid w-250px ps-14"
+                                            placeholder="Búsqueda Específica" />
+                                    </div><br>
+                                    <!--end::search-->
                                     <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                                     </div>
                                     <div class="table-responsive ">
-                                        <table class="table-responsive table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+                                        <table class="table-responsive table align-middle table-row-dashed fs-6 gy-5"
+                                            id="kt_customers_table">
                                             <thead class="bg-primary">
                                                 <tr class=" text-start text-gray-100 fw-bold fs-7  gs-4">
 
@@ -218,7 +234,7 @@
     <!--begin::Javascript-->
     <script src="assets/js/vinculacion.js"></script>
     <script>
-        var hostUrl = "assets/";
+    var hostUrl = "assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="assets/plugins/global/plugins.bundle.js"></script>
@@ -321,33 +337,57 @@
     </script> -->
 
     <script>
-        $(document).ready(function() {
-            // Agregar un evento al botón "validarDocumento"
-            $("#validard").click(function() {
-                // Obtener la matrícula y el ID del documento
-                var matricula = $("#matricula").val();
-                var idDoc = $("#idDoc").val();
-                var email = $("#email").val();
+    $(document).ready(function() {
+        // Agregar un evento al botón "validarDocumento"
+        $("#validard").click(function() {
+            // Obtener la matrícula y el ID del documento
+            var matricula = $("#matricula").val();
+            var idDoc = $("#idDoc").val();
+            var email = $("#email").val();
 
-                // Crear la URL de la solicitud GET
-                var url = "index.php?c=ptc&a=validarDoc&id=" + matricula + "&id2=" + idDoc;
+            // Crear la URL de la solicitud GET
+            var url = "index.php?c=ptc&a=validarDoc&id=" + matricula + "&id2=" + idDoc;
 
-                // Realizar la solicitud AJAX GET
-                $.get(url, function(response) {
-                    // Manejar la respuesta de la solicitud
-                    console.log("Se modificó");
+            // Realizar la solicitud AJAX GET
+            $.get(url, function(response) {
+                // Manejar la respuesta de la solicitud
+                console.log("Se modificó");
 
-                    // Mostrar una alerta de éxito
-                    Swal.fire({
-                        title: 'Éxito',
-                        text: '¡Envío exitoso!',
-                        icon: 'success'
-                    });
+                // Mostrar una alerta de éxito
+                Swal.fire({
+                    title: 'Éxito',
+                    text: '¡Envío exitoso!',
+                    icon: 'success'
                 });
             });
         });
+    });
     </script>
+    <!--begin::search JavaScript-->
+    <script>
+    $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var searchText = $(this).val().toLowerCase();
 
+            $("tbody tr").each(function() {
+                var rowText = $(this).text().toLowerCase();
+                var showRow = false;
+
+                // Verificar si el texto de búsqueda está presente en alguna celda de la fila
+                $("td", this).each(function() {
+                    if ($(this).text().toLowerCase().indexOf(searchText) > -1) {
+                        showRow = true;
+                        return false; // Salir del bucle si se encuentra una coincidencia en alguna celda
+                    }
+                });
+
+                // Mostrar u ocultar la fila según el resultado de la búsqueda
+                $(this).toggle(showRow);
+            });
+        });
+    });
+    </script>
+    <!--end::search JavaScript-->
 
 
     <!--end::Custom Javascript-->

@@ -6,12 +6,15 @@
     <base href="" />
     <title>UPAM</title>
     <meta charset="utf-8" />
-    <meta name="description" content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+    <meta name="description"
+        content="The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free." />
+    <meta name="keywords"
+        content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_es" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Metronic - Bootstrap Admin Template, HTML, VueJS, React, Angular. Laravel, Asp.Net Core, Ruby on Rails, Spring Boot, Blazor, Django, Express.js, Node.js, Flask Admin Dashboard Theme & Template" />
+    <meta property="og:title"
+        content="Metronic - Bootstrap Admin Template, HTML, VueJS, React, Angular. Laravel, Asp.Net Core, Ruby on Rails, Spring Boot, Blazor, Django, Express.js, Node.js, Flask Admin Dashboard Theme & Template" />
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
@@ -27,33 +30,33 @@
     <link href="assets/css/style.bundle.css" rel="stylesheet type=" text/css" />
     <!--end::Global Stylesheets Bundle-->
     <script>
-        // Frame-busting to prevent the site from being loaded within a frame without permission (click-jacking)
-        if (window.top != window.self) {
-            window.top.location.replace(window.self.location.href);
-        }
+    // Frame-busting to prevent the site from being loaded within a frame without permission (click-jacking)
+    if (window.top != window.self) {
+        window.top.location.replace(window.self.location.href);
+    }
     </script>
 </head>
 
 <body id="kt_app_body" data-kt-app-header-fixed-mobile="true" data-kt-app-toolbar-enabled="true" class="app-default">
     <!--begin::Theme mode setup on page load-->
     <script>
-        var defaultThemeMode = "light";
-        var themeMode;
-        if (document.documentElement) {
-            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+    var defaultThemeMode = "light";
+    var themeMode;
+    if (document.documentElement) {
+        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+        } else {
+            if (localStorage.getItem("data-bs-theme") !== null) {
+                themeMode = localStorage.getItem("data-bs-theme");
             } else {
-                if (localStorage.getItem("data-bs-theme") !== null) {
-                    themeMode = localStorage.getItem("data-bs-theme");
-                } else {
-                    themeMode = defaultThemeMode;
-                }
+                themeMode = defaultThemeMode;
             }
-            if (themeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            }
-            document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }
     </script>
     <!--end::Theme mode setup on page load-->
     <!--begin::App-->
@@ -91,7 +94,8 @@
                                 <div class="page-title d-flex align-items-center me-3">
                                     <img alt="Logo" src="assets/media/svg/misc/layer.svg" class="h-60px me-5" />
                                     <!--begin::Title-->
-                                    <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
+                                    <h1
+                                        class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">
                                         DEPARTAMENTO DE SERVICIOS ESCOLARES
                                     </h1>
                                     <!--end::Title-->
@@ -116,14 +120,16 @@
                                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                                     <!--begin::Actions-->
                                     <div class="d-flex my-4">
-                                        <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Registrar Alumno</a>
+                                        <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_offer_a_deal">Registrar Alumno</a>
                                     </div>
                                     <!--end::Actions-->
                                 </div>
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
                                     <div class="fv-row mb-6">
-                                        <form action="?c=importar&a=importar" method="POST" enctype="multipart/form-data" onsubmit="return validarArchivo()">
+                                        <form action="?c=importar&a=importar" method="POST"
+                                            enctype="multipart/form-data" onsubmit="return validarArchivo()">
                                             <div class="dz-message needsclick">
                                                 <!-- Icono y texto centrados -->
                                                 <i class="ki-outline ki-file-up text-primary fs-5x"></i>
@@ -135,10 +141,31 @@
                                             <input type="submit" value="Subir Archivo" class="btn btn-primary">
                                         </form>
                                     </div>
+                                    <!--begin::search-->
+                                    <div class="d-flex align-items-center position-relative my-2">
+                                        <i class="ki-outline ki-magnifier fs-2 position-absolute ms-3"></i>
+                                        <input type="text" id="searchInput"
+                                            class="form-control form-control-solid w-250px ps-14"
+                                            placeholder="Búsqueda Específica" />
+                                        <!--begin::btns-activardesactivar--->
+                                        <div class="d-flex">
+                                            <a href="?c=escolars&a=statusA" id="activarDesactivarTodos"
+                                                class="btn btn-sm btn-primary me-3 ms-20">
+                                                Activar Todos
+                                            </a>
+                                            <a href="?c=escolars&a=statusI" id="activarDesactivarTodos"
+                                                class="btn btn-sm btn-primary me-3 ms-1">
+                                                Desactivar Todos
+                                            </a>
+                                        </div>
+                                        <!--end::btns-activardesactivar--->
+                                    </div><br>
+                                    <!--end::search-->
                                     <!--begin::Table-->
                                     <!--LRGA03-->
                                     <div class="table table-responsive">
-                                        <table class="table-responsive table align-middle table-row-dashed fs-8 gy-5" id="kt_customers_table">
+                                        <table class="table-responsive table align-middle table-row-dashed fs-8 gy-5"
+                                            id="kt_customers_table">
                                             <thead class="bg-primary">
                                                 <tr class=" text-start text-gray-100 fw-bold fs-7  gs-0">
                                                     <th class="textoTabla min-w-25px">Matricula</th>
@@ -292,14 +319,6 @@
                                         </table>
                                     </div>
                                     <!--end::Table-->
-                                    <div>
-                                        <a href="?c=escolars&a=statusA" id="activarDesactivarTodos" class="btn btn-sm btn-primary me-3">
-                                            Activar Todos
-                                        </a>
-                                        <a href="?c=escolars&a=statusI" id="activarDesactivarTodos" class="btn btn-sm btn-primary me-3">
-                                            Desactivar Todos
-                                        </a>
-                                    </div>
                                 </div>
                                 <!--LRGA03-->
                             </div>
@@ -340,7 +359,8 @@
                             <!--begin::Content-->
                             <div id="kt_account_settings_profile_details" class="collapse show">
                                 <!--begin::Form-->
-                                <form id="kt_account_profile_details_form" class="form" action="index.php?c=escolars&a=cargarAlumnoIndividual" method="post">
+                                <form id="kt_account_profile_details_form" class="form"
+                                    action="index.php?c=escolars&a=cargarAlumnoIndividual" method="post">
                                     <!--begin::Card body
                                             index.php?c=escolars&a=registro.php
                                     -->
@@ -348,7 +368,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Matricula del alumno</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Matricula
+                                                del alumno</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -356,7 +377,10 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="number" name="matricula" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required pattern="[0-9]{8}" oninput="bloquearCampo(this, 8)" onblur="resaltarCampoVacio(this)" />
+                                                        <input type="number" name="matricula"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required pattern="[0-9]{8}" oninput="bloquearCampo(this, 8)"
+                                                            onblur="resaltarCampoVacio(this)" />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -369,7 +393,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nombre(s) del alumno</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nombre(s)
+                                                del alumno</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -377,7 +402,9 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="text" name="nombre_alumno" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required onblur="resaltarCampoVacio(this)" />
+                                                        <input type="text" name="nombre_alumno"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required onblur="resaltarCampoVacio(this)" />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -390,7 +417,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido Paterno</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido
+                                                Paterno</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -398,7 +426,9 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="text" name="apellidoP" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                        <input type="text" name="apellidoP"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -411,7 +441,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido Materno</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido
+                                                Materno</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -419,7 +450,9 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="text" name="apellidoM" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                        <input type="text" name="apellidoM"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -432,7 +465,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Correo institucional</label>
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Correo
+                                                institucional</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -440,7 +474,9 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="email" name="correo" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                        <input type="email" name="correo"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -453,7 +489,8 @@
                                         <!--begin::Input group-->
                                         <div class="row mb-6" style="margin-left:230px;">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Telefono</label>
+                                            <label
+                                                class="col-lg-4 col-form-label required fw-semibold fs-6">Telefono</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
@@ -461,7 +498,11 @@
                                                 <div class="row">
                                                     <!--begin::Col-->
                                                     <div class="col-lg-7 fv-row">
-                                                        <input type="number" name="telefono" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required pattern="[0-9]{10}" oninput="bloquearCampo(this, 10)" onblur="resaltarCampoVacio(this)" />
+                                                        <input type="number" name="telefono"
+                                                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                                            required pattern="[0-9]{10}"
+                                                            oninput="bloquearCampo(this, 10)"
+                                                            onblur="resaltarCampoVacio(this)" />
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
@@ -476,7 +517,8 @@
                                             <!--begin::Label-->
                                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                                 <span class="required">Carrera</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Country of origination">
+                                                <span class="ms-1" data-bs-toggle="tooltip"
+                                                    title="Country of origination">
                                                     <i class="ki-outline ki-information-5 text-gray-500 fs-5"></i>
                                                 </span>
                                             </label>
@@ -484,7 +526,9 @@
                                             <!--begin::Col-->
                                             <div class="col-lg-5 fv-row">
                                                 <!--begin::Input-->
-                                                <select id="carrera" name="carrera" aria-label="Seleccione una carrera" data-control="select2" data-placeholder="Seleccione una carrera..." class="form-select form-select-solid form-select-lg">
+                                                <select id="carrera" name="carrera" aria-label="Seleccione una carrera"
+                                                    data-control="select2" data-placeholder="Seleccione una carrera..."
+                                                    class="form-select form-select-solid form-select-lg">
                                                     <option value="">Seleccione una carrera...</option>
                                                     <?php
                                                     foreach ($resultCarrera as $row) {
@@ -503,7 +547,8 @@
                                             <!--begin::Label-->
                                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                                 <span class="required">Proceso</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Country of origination">
+                                                <span class="ms-1" data-bs-toggle="tooltip"
+                                                    title="Country of origination">
                                                     <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                                                 </span>
                                             </label>
@@ -511,7 +556,9 @@
                                             <!--begin::Col-->
                                             <div class="col-lg-5 fv-row">
                                                 <!--begin::Input-->
-                                                <select id="proceso" name="proceso" aria-label="Seleccione un proceso" data-control="select2" data-placeholder="Seleccione un proceso..." class="form-select form-select-solid form-select-lg">
+                                                <select id="proceso" name="proceso" aria-label="Seleccione un proceso"
+                                                    data-control="select2" data-placeholder="Seleccione un proceso..."
+                                                    class="form-select form-select-solid form-select-lg">
                                                     <option value="">Seleccione un proceso...</option>
                                                     <?php
                                                     foreach ($resultProcesos as $procesos) {
@@ -529,7 +576,8 @@
                                             <!--begin::Label-->
                                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                                 <span class="required">Periodo</span>
-                                                <span class="ms-1" data-bs-toggle="tooltip" title="Country of origination">
+                                                <span class="ms-1" data-bs-toggle="tooltip"
+                                                    title="Country of origination">
                                                     <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
                                                 </span>
                                             </label>
@@ -537,12 +585,14 @@
                                             <!--begin::Col-->
                                             <div class="col-lg-5 fv-row">
                                                 <!--begin::Input-->
-                                                <select id="periodo" name="periodo" aria-label="Seleccione un periodo" data-control="select2" data-placeholder="Seleccione un periodo..." class="form-select form-select-solid form-select-lg">
+                                                <select id="periodo" name="periodo" aria-label="Seleccione un periodo"
+                                                    data-control="select2" data-placeholder="Seleccione un periodo..."
+                                                    class="form-select form-select-solid form-select-lg">
                                                     <option value="">Seleccione un periodo...</option>
                                                     <?php foreach ($resultPeriodo as $periodo) : ?>
-                                                        <option value="<?php echo $periodo['IdPeriodo']; ?>">
-                                                            <?php echo $periodo['Meses'] . ' ' . $periodo['Año']; ?>
-                                                        </option>
+                                                    <option value="<?php echo $periodo['IdPeriodo']; ?>">
+                                                        <?php echo $periodo['Meses'] . ' ' . $periodo['Año']; ?>
+                                                    </option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <!--end::Input-->
@@ -554,7 +604,8 @@
                                     <!--end::Card body-->
                                     <!--begin::Actions-->
                                     <div class="card-footer d-flex justify-content-end py-4 px-9">
-                                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Registrar Alumno</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            id="kt_account_profile_details_submit">Registrar Alumno</button>
                                     </div>
                                     <!--end::Actions-->
                                 </form>
@@ -582,7 +633,7 @@
         <!--begin::Javascript-->
         <script src="assets/js/vinculacion.js"></script>
         <script>
-            var hostUrl = "assets/";
+        var hostUrl = "assets/";
         </script>
         <!--begin::Global Javascript Bundle(mandatory for all pages)-->
         <script src="assets/plugins/global/plugins.bundle.js"></script>
@@ -600,87 +651,121 @@
         <script src="assets/js/custom/utilities/modals/users-search.js"></script>
         <script src="formulario.js"></script>
         <script>
-            // Script jQuery para manejar los clics en los botones de activar/desactivar
-            $(document).ready(function() {
-                // Botones individuales
-                $('.btn-activar').on('click', function() {
-                    var alumnoId = $(this).data('alumno-id');
-                    var alumnoEstatus = $(this).data('alumno-estatus');
-                    // Realiza aquí la lógica para activar/desactivar al alumno con ID 'alumnoId'
-                    // Puedes usar AJAX para enviar una solicitud al servidor y actualizar el estado del alumno en la base de datos
-                    if (alumnoEstatus === 1) {
-                        desactivarAlumno(alumnoId);
-                    } else {
-                        activarAlumno(alumnoId);
-                    }
-                });
-
-                // Botón para activar/desactivar todos
-                $('.btn-activar-todos').on('click', function() {
-                    // Realiza aquí la lógica para activar/desactivar todos los alumnos
-                    // Puedes usar AJAX para enviar una solicitud al servidor y actualizar el estado de todos los alumnos en la base de datos
-                    var activarTodos = confirm("¿Deseas activar/desactivar a todos los alumnos?");
-                    if (activarTodos) {
-                        var accion = activarTodos ? 'activar' : 'desactivar';
-                        actualizarTodosLosAlumnos(accion);
-                    }
-                });
-
-                function activarAlumno(alumnoId) {
-                    // Lógica para activar el alumno con el ID proporcionado
-                    $.ajax({
-                        type: "POST",
-                        url: "config/cambiarEstado.php",
-                        data: {
-                            alumnoId: alumnoId
-                        },
-                        success: function(response) {
-                            // Actualiza el estado del botón y muestra un mensaje de éxito
-                            $('[data-alumno-id="' + alumnoId + '"]').find('.btn-activar').data('alumno-estatus', 1);
-                            $('[data-alumno-id="' + alumnoId + '"]').find('.status-cell').text('Activo').removeClass('text-danger').addClass('text-success');
-                           // alert('Alumno activado con éxito.');
-                        }
-                    });
-                }
-
-                function desactivarAlumno(alumnoId) {
-                    // Lógica para desactivar el alumno con el ID proporcionado
-                    $.ajax({
-                        type: "POST",
-                        url: "config/cambiarEstado.php",
-                        data: {
-                            alumnoId: alumnoId
-                        },
-                        success: function(response) {
-                            // Actualiza el estado del botón y muestra un mensaje de éxito
-                            $('[data-alumno-id="' + alumnoId + '"]').find('.btn-activar').data('alumno-estatus', 0);
-                            $('[data-alumno-id="' + alumnoId + '"]').find('.status-cell').text('Inactivo').removeClass('text-success').addClass('text-danger');
-                            //alert('Alumno desactivado con éxito.');
-                        }
-                    });
-                }
-
-                function actualizarTodosLosAlumnos(accion) {
-                    // Lógica para activar o desactivar a todos los alumnos
-                    $.ajax({
-                        type: "POST",
-                        url: "tu_ruta_para_actualizar_todos_los_alumnos.php",
-                        data: {
-                            accion: accion
-                        },
-                        success: function(response) {
-                            if (accion === 'activar') {
-                                $('.status-cell').text('Activo').removeClass('text-danger').addClass('text-success');
-                            } else {
-                                $('.status-cell').text('Inactivo').removeClass('text-success').addClass('text-danger');
-                            }
-                            //alert('Todos los alumnos fueron ' + (accion === 'activar' ? 'activados' : 'desactivados') + ' con éxito.');
-                        }
-                    });
+        // Script jQuery para manejar los clics en los botones de activar/desactivar
+        $(document).ready(function() {
+            // Botones individuales
+            $('.btn-activar').on('click', function() {
+                var alumnoId = $(this).data('alumno-id');
+                var alumnoEstatus = $(this).data('alumno-estatus');
+                // Realiza aquí la lógica para activar/desactivar al alumno con ID 'alumnoId'
+                // Puedes usar AJAX para enviar una solicitud al servidor y actualizar el estado del alumno en la base de datos
+                if (alumnoEstatus === 1) {
+                    desactivarAlumno(alumnoId);
+                } else {
+                    activarAlumno(alumnoId);
                 }
             });
+
+            // Botón para activar/desactivar todos
+            $('.btn-activar-todos').on('click', function() {
+                // Realiza aquí la lógica para activar/desactivar todos los alumnos
+                // Puedes usar AJAX para enviar una solicitud al servidor y actualizar el estado de todos los alumnos en la base de datos
+                var activarTodos = confirm("¿Deseas activar/desactivar a todos los alumnos?");
+                if (activarTodos) {
+                    var accion = activarTodos ? 'activar' : 'desactivar';
+                    actualizarTodosLosAlumnos(accion);
+                }
+            });
+
+            function activarAlumno(alumnoId) {
+                // Lógica para activar el alumno con el ID proporcionado
+                $.ajax({
+                    type: "POST",
+                    url: "config/cambiarEstado.php",
+                    data: {
+                        alumnoId: alumnoId
+                    },
+                    success: function(response) {
+                        // Actualiza el estado del botón y muestra un mensaje de éxito
+                        $('[data-alumno-id="' + alumnoId + '"]').find('.btn-activar').data(
+                            'alumno-estatus', 1);
+                        $('[data-alumno-id="' + alumnoId + '"]').find('.status-cell').text(
+                                'Activo')
+                            .removeClass('text-danger').addClass('text-success');
+                        // alert('Alumno activado con éxito.');
+                    }
+                });
+            }
+
+            function desactivarAlumno(alumnoId) {
+                // Lógica para desactivar el alumno con el ID proporcionado
+                $.ajax({
+                    type: "POST",
+                    url: "config/cambiarEstado.php",
+                    data: {
+                        alumnoId: alumnoId
+                    },
+                    success: function(response) {
+                        // Actualiza el estado del botón y muestra un mensaje de éxito
+                        $('[data-alumno-id="' + alumnoId + '"]').find('.btn-activar').data(
+                            'alumno-estatus', 0);
+                        $('[data-alumno-id="' + alumnoId + '"]').find('.status-cell').text(
+                            'Inactivo').removeClass('text-success').addClass('text-danger');
+                        //alert('Alumno desactivado con éxito.');
+                    }
+                });
+            }
+
+            function actualizarTodosLosAlumnos(accion) {
+                // Lógica para activar o desactivar a todos los alumnos
+                $.ajax({
+                    type: "POST",
+                    url: "tu_ruta_para_actualizar_todos_los_alumnos.php",
+                    data: {
+                        accion: accion
+                    },
+                    success: function(response) {
+                        if (accion === 'activar') {
+                            $('.status-cell').text('Activo').removeClass('text-danger')
+                                .addClass(
+                                    'text-success');
+                        } else {
+                            $('.status-cell').text('Inactivo').removeClass('text-success')
+                                .addClass(
+                                    'text-danger');
+                        }
+                        //alert('Todos los alumnos fueron ' + (accion === 'activar' ? 'activados' : 'desactivados') + ' con éxito.');
+                    }
+                });
+            }
+        });
         </script>
         </script>
+        <!--begin::search JavaScript-->
+        <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var searchText = $(this).val().toLowerCase();
+
+                $("tbody tr").each(function() {
+                    var rowText = $(this).text().toLowerCase();
+                    var showRow = false;
+
+                    // Verificar si el texto de búsqueda está presente en alguna celda de la fila
+                    $("td", this).each(function() {
+                        if ($(this).text().toLowerCase().indexOf(searchText) > -1) {
+                            showRow = true;
+                            return false; // Salir del bucle si se encuentra una coincidencia en alguna celda
+                        }
+                    });
+
+                    // Mostrar u ocultar la fila según el resultado de la búsqueda
+                    $(this).toggle(showRow);
+                });
+            });
+        });
+        </script>
+        <!--end::search JavaScript-->
         <!--end::Custom Javascript-->
         <!--end::Javascript-->
         <!-- scrip para modificar alumno -->
