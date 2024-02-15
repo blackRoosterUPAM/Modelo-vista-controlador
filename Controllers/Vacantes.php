@@ -44,21 +44,23 @@ class VacantesController
 
     public function new_vacante()
     {
+        // Obtener los datos del formulario
         $idSede = $_POST["sede"];
         $idCarrera = $_POST["carrera"];
         $idProceso = $_POST["proceso"];
         $idPeriodo = $_POST["periodo"];
-
         $perfil = $_POST["perfil"];
         $beneficios = $_POST["beneficios"];
         $vacantes = $_POST["vacantes"];
 
-        $vacante = new Vacantes();
-        $dato = $vacante->nueva_sede($idSede, $idCarrera,$idProceso,$idPeriodo,$perfil,$beneficios,$vacantes);
+        // Instanciar el modelo de vacantes
+        $vacanteModel = new Vacantes();
 
-        $carrera = new Carrera();
-        $result = $carrera->get_carreras();
-        require_once "Views/Vinculacion/vacantes.php";
+        // Llamar al método para agregar una nueva vacante
+        $response = $vacanteModel->nueva_vacante($idSede, $idCarrera, $idProceso, $idPeriodo, $perfil, $beneficios, $vacantes);
+
+        // Enviar la respuesta como JSON
+        echo json_encode($response);
     }
 
     public function mostrar_busqueda()

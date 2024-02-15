@@ -61,26 +61,38 @@ class Contraseña
 
     private function insertarCodigo($correo, $codigo)
     {
-        // Obtener el IdUsuario asociado al correo electrónico
-        $query = mysqli_query($this->db, "SELECT IdUsuario FROM usuarios WHERE CorreoE = '$correo'");
-
-        if ($query) {
+        // Obtener el número de resultados para el correo electrónico dado
+        $query = mysqli_query($this->db, "SELECT COUNT(*) AS count FROM usuarios WHERE CorreoE = '$correo'");
+        $result = mysqli_fetch_assoc($query);
+        $count = $result["count"];
+    
+        if ($count == 1) {
+            // Obtener el IdUsuario asociado al correo electrónico
+            $query = mysqli_query($this->db, "SELECT IdUsuario FROM usuarios WHERE CorreoE = '$correo'");
             $usuario = mysqli_fetch_assoc($query);
             $idUsuario = $usuario["IdUsuario"];
-
-            // Insertar el código junto con el IdUsuario en la tabla codigos_recuperacion
-            $stmt = $this->db->prepare("INSERT INTO codigos_recuperacion (idUsuario, codigo) VALUES (?, ?)");
-            $stmt->bind_param("is", $idUsuario, $codigo);
-            $stmt->execute();
-
-            $stmt->close();
+    
+            // Eliminar el código existente, si lo hay, asociado al IdUsuario
+            $deleteStmt = $this->db->prepare("DELETE FROM codigos_recuperacion WHERE idUsuario = ?");
+            $deleteStmt->bind_param("i", $idUsuario);
+            $deleteStmt->execute();
+            $deleteStmt->close();
+    
+            // Insertar el nuevo código junto con el IdUsuario en la tabla codigos_recuperacion
+            $insertStmt = $this->db->prepare("INSERT INTO codigos_recuperacion (idUsuario, codigo) VALUES (?, ?)");
+            $insertStmt->bind_param("is", $idUsuario, $codigo);
+            $insertStmt->execute();
+            $insertStmt->close();
         } else {
-            // Manejar el error al ejecutar la consulta
-            echo "Error al obtener el IdUsuario: " . mysqli_error($this->db);
+            // Redirigir a index.php si el correo tiene más de un resultado o ninguno
+            header('location: index.php');
+            exit(); // Salir para evitar ejecución adicional del script
         }
-
+    
         $this->db->close();
     }
+    
+
 
     public function obtenerIdUsuarioPorCorreo($correo)
     {
@@ -108,43 +120,42 @@ class Contraseña
     }
 
     public function actualizarContraseña($idUsuario, $nuevaContraseña)
-{
-    // Hashear la nueva contraseña con MD5 (o utiliza un método más seguro si es posible)
-    $hashNuevaContraseña = md5($nuevaContraseña);
+    {
+        // Hashear la nueva contraseña con MD5 (o utiliza un método más seguro si es posible)
+        $hashNuevaContraseña = md5($nuevaContraseña);
 
-    // Iniciar la transacción
-    $this->db->begin_transaction();
+        // Iniciar la transacción
+        $this->db->begin_transaction();
 
-    try {
-        // Actualizar la contraseña en la tabla de usuarios
-        $stmt1 = $this->db->prepare("UPDATE usuarios SET Contraseña = ? WHERE IdUsuario = ?");
-        $stmt1->bind_param("si", $hashNuevaContraseña, $idUsuario);
-        $resultado1 = $stmt1->execute();
-        $stmt1->close();
+        try {
+            // Actualizar la contraseña en la tabla de usuarios
+            $stmt1 = $this->db->prepare("UPDATE usuarios SET Contraseña = ? WHERE IdUsuario = ?");
+            $stmt1->bind_param("si", $hashNuevaContraseña, $idUsuario);
+            $resultado1 = $stmt1->execute();
+            $stmt1->close();
 
-        // Eliminar el código de recuperación de la tabla codigos_recuperacion
-        $stmt2 = $this->db->prepare("DELETE FROM codigos_recuperacion WHERE idUsuario = ?");
-        $stmt2->bind_param("i", $idUsuario);
-        $resultado2 = $stmt2->execute();
-        $stmt2->close();
+            // Eliminar el código de recuperación de la tabla codigos_recuperacion
+            $stmt2 = $this->db->prepare("DELETE FROM codigos_recuperacion WHERE idUsuario = ?");
+            $stmt2->bind_param("i", $idUsuario);
+            $resultado2 = $stmt2->execute();
+            $stmt2->close();
 
-        // Cometer la transacción si ambas operaciones tienen éxito
-        if ($resultado1 && $resultado2) {
-            $this->db->commit();
-            return true;
-        } else {
-            // Si algo falla, hacer un rollback de la transacción
+            // Cometer la transacción si ambas operaciones tienen éxito
+            if ($resultado1 && $resultado2) {
+                $this->db->commit();
+                return true;
+            } else {
+                // Si algo falla, hacer un rollback de la transacción
+                $this->db->rollback();
+                return false;
+            }
+        } catch (Exception $e) {
+            // Manejar la excepción si ocurre algún error
             $this->db->rollback();
             return false;
+        } finally {
+            // Cerrar la conexión a la base de datos
+            $this->db->close();
         }
-    } catch (Exception $e) {
-        // Manejar la excepción si ocurre algún error
-        $this->db->rollback();
-        return false;
-    } finally {
-        // Cerrar la conexión a la base de datos
-        $this->db->close();
     }
-}
-
 }

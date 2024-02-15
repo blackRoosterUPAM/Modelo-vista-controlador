@@ -25,7 +25,7 @@ class UsuariosController
             $id = $usuario['IdUsuario'];
             $rol = $usuario['idRol'];
             $nombreRol = $usuario['nombreRol'];
-            
+
 
             // Puedes realizar operaciones adicionales aquí si es necesario
             if ($nombreRol == 'Sede') {
@@ -70,16 +70,15 @@ class UsuariosController
             } elseif ($nombreRol == "Graficas") {
                 session_start();
                 $_SESSION['id_usuario'] = $id; // Donde $id es el ID del usuario obtenido
-                $_SESSION['name'] = 'Graficas';                
+                $_SESSION['name'] = 'Graficas';
                 header('location: index.php?c=estad&a=index');
-
-            }
-            else {
-                header('location: index.php');
+            } else {
+                // Inicio de sesión fallido, redirigir al login con mensaje de error
+                header('Location: index.php?error=correo_contraseña_incorrectos');
             }
         } else {
-            // Inicio de sesión fallido, redirigir al login _
-            header('location: index.php');
+            // Inicio de sesión fallido, redirigir al login con mensaje de error
+            header('Location: index.php?error=correo_contraseña_incorrectos');
         }
     }
 

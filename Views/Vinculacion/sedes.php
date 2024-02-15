@@ -3,18 +3,18 @@ session_start(); // Asegúrate de iniciar la sesión en cada vista que utilice s
 
 // Verifica si la variable de sesión existe antes de mostrarla
 if (isset($_SESSION['id_usuario']) || isset($_SESSION['name'])) {
-	$idUsuario = $_SESSION['id_usuario'];
-	$name = $_SESSION['name'];
-	if ($name == 'Vinculacion') {
-	} else {
-		// Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
-		header('location: index.php');
-		exit; // Detener la ejecución del script
-	}
+    $idUsuario = $_SESSION['id_usuario'];
+    $name = $_SESSION['name'];
+    if ($name == 'Vinculacion') {
+    } else {
+        // Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
+        header('location: index.php');
+        exit; // Detener la ejecución del script
+    }
 } else {
-	// Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
-	header('location: index.php');
-	exit; // Detener la ejecución del script
+    // Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
+    header('location: index.php');
+    exit; // Detener la ejecución del script
 }
 ?>
 <!DOCTYPE html>
@@ -61,6 +61,31 @@ License: For each use you must have a valid license purchased only from above li
         // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos para el campo de contraseña */
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            padding-right: 30px;
+            /* Espacio para el icono */
+            border: none;
+            /* Sin borde */
+            border-radius: 5px;
+            /* Bordes redondeados */
+        }
+
+        .password-container i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 <!--end::Head-->
@@ -210,7 +235,14 @@ License: For each use you must have a valid license purchased only from above li
                                                 }
                                             });
                                         } else {
-                                            alert("Por favor, ingresa un texto de búsqueda antes de buscar.");
+                                            Swal.fire({
+                                                title: 'Error',
+                                                text: 'Por favor, ingresa un texto de búsqueda antes de buscar.',
+                                                icon: 'error'
+                                            }).then((result) => {
+                                                // Redireccionar después de mostrar el mensaje de error
+                                                window.location.href = 'index.php?c=sedes&a=show_sede';
+                                            });
                                         }
                                     });
                                 </script>
@@ -352,7 +384,7 @@ License: For each use you must have a valid license purchased only from above li
                         <!--begin::Content-->
                         <div id="kt_account_settings_profile_details" class="collapse show">
                             <!--begin::Form-->
-                            <form id="kt_account_profile_details_form" class="form" action="?c=sedes&a=nueva_sede" method="post" enctype="multipart/form-data">
+                            <form id="kt_account_profile_details_form">
                                 <!--begin::Card body-->
                                 <div class="card-body border-top p-9">
                                     <!--begin::Input group-->
@@ -495,7 +527,28 @@ License: For each use you must have a valid license purchased only from above li
                                             <div class="row">
                                                 <!--begin::Col-->
                                                 <div class="col-lg-6 fv-row">
-                                                    <input type="password" name="contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                    <div class="password-container">
+                                                        <input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" class="form-control bg-transparent" require />
+                                                        <i id="visibility-icon" class="fas fa-eye" onclick="toggleVisibility()"></i>
+                                                    </div>
+
+                                                    <!--end::Password-->
+
+                                                    <script>
+                                                        function toggleVisibility() {
+                                                            var passwordInput = document.getElementById("contraseña");
+                                                            var visibilityIcon = document.getElementById("visibility-icon");
+
+                                                            if (passwordInput.type === "password") {
+                                                                passwordInput.type = "text";
+                                                                visibilityIcon.className = "fas fa-eye-slash";
+                                                            } else {
+                                                                passwordInput.type = "password";
+                                                                visibilityIcon.className = "fas fa-eye";
+                                                            }
+                                                        }
+                                                    </script>
+
                                                 </div>
                                                 <!--end::Col-->
                                             </div>
@@ -646,6 +699,64 @@ License: For each use you must have a valid license purchased only from above li
                                 </div>
                                 <!--end::Actions-->
                             </form>
+
+                            <script src="ruta/a/jquery.js"></script>
+                            <script src="ruta/a/sweetalert.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#kt_account_profile_details_form').submit(function(event) {
+                                        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                                        // Obtener los datos del formulario
+                                        var formData = new FormData(this);
+
+                                        // Enviar la solicitud AJAX al servidor
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '?c=sedes&a=nueva_sede',
+                                            data: formData,
+                                            dataType: 'json',
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(response) {
+                                                if (response.status === 'success') {
+                                                    // Mostrar mensaje de éxito con SweetAlert
+                                                    Swal.fire({
+                                                        title: 'Éxito',
+                                                        text: response.message,
+                                                        icon: 'success'
+                                                    }).then((result) => {
+                                                        // Redireccionar después de mostrar el mensaje de éxito
+                                                        window.location.href = 'index.php?c=sedes&a=show_sede';
+                                                    });
+                                                } else {
+                                                    // Mostrar mensaje de error con SweetAlert
+                                                    Swal.fire({
+                                                        title: 'Error',
+                                                        text: response.message,
+                                                        icon: 'error'
+                                                    }).then((result) => {
+                                                        // Redireccionar después de mostrar el mensaje de error
+                                                        window.location.href = 'index.php?c=sedes&a=show_sede';
+                                                    });
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                // Mostrar mensaje de error en caso de falla de la solicitud AJAX
+                                                Swal.fire({
+                                                    title: 'Error',
+                                                    text: 'Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.',
+                                                    icon: 'error'
+                                                }).then((result) => {
+                                                    // Redireccionar después de mostrar el mensaje de error de la solicitud AJAX
+                                                    window.location.href = 'index.php?c=sedes&a=show_sede';
+                                                });
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
                             <!--end::Form-->
                         </div>
                         <!--end::Content-->

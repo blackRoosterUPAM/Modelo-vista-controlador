@@ -99,10 +99,9 @@ License: For each use you must have a valid license purchased only from above li
                         <div class="d-flex flex-column flex-column-fluid">
                             <!--begin::Content-->
                             <div id="kt_app_content" class="app-content">
-                                <form action="index.php?c=rcontraseña&a=actualizar_contraseña" method="post">
+                                <form id="actualizarContraseñaForm">
                                     <!-- Campo oculto para el idUsuario -->
                                     <input type="hidden" name="idUsuario" value="<?php echo $idUsuario; ?>">
-
 
                                     <!-- Nuevos campos para la contraseña -->
                                     <div class="col-lg-8">
@@ -111,7 +110,7 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--begin::Col-->
                                             <div class="col-lg-6 fv-row" style="margin-left:50%;">
                                                 <label style="font-size: 140%;" for="nueva_contraseña">Nueva Contraseña:</label>
-                                                <input type="password" name="nueva_contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                <input type="password" name="nueva_contraseña" id="nueva_contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
                                             </div>
                                             <!--end::Col-->
                                         </div>
@@ -123,18 +122,81 @@ License: For each use you must have a valid license purchased only from above li
                                         <div class="row">
                                             <!--begin::Col-->
                                             <div class="col-lg-6 fv-row" style="margin-left:50%;">
-                                                <label style="font-size: 140%;" for="nueva_contraseña">Confirmar Contraseña:</label>
-                                                <input type="password" name="confirmar_contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                                <label style="font-size: 140%;" for="confirmar_contraseña">Confirmar Contraseña:</label>
+                                                <input type="password" name="confirmar_contraseña" id="confirmar_contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
                                             </div>
                                             <!--end::Col-->
                                         </div>
                                         <!--end::Row-->
                                     </div>
                                     <br>
-                                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2"  style="margin-left:45%;">
-                                        <button class="btn btn-sm btn-primary me-3" type="submit">Actualizar Contraseña</button>
+                                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2" style="margin-left:45%;">
+                                        <button id="actualizarContraseñaBtn" class="btn btn-sm btn-primary me-3" type="button">Actualizar Contraseña</button>
                                     </div>
                                 </form>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#actualizarContraseñaBtn').click(function() {
+                                            var nuevaContraseña = $('#nueva_contraseña').val().trim();
+                                            var confirmarContraseña = $('#confirmar_contraseña').val().trim();
+
+                                            // Verificar si las contraseñas coinciden
+                                            if (nuevaContraseña !== confirmarContraseña) {
+                                                // Las contraseñas no coinciden, muestra una alerta de error
+                                                Swal.fire({
+                                                    title: 'Error',
+                                                    text: 'Las contraseñas no coinciden. Por favor, inténtelo de nuevo.',
+                                                    icon: 'error'
+                                                });
+                                                return; // Detiene la ejecución
+                                            }
+
+                                            var formData = $('#actualizarContraseñaForm').serialize(); // Serializa los datos del formulario
+
+                                            // Envía la solicitud AJAX para actualizar la contraseña
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: 'index.php?c=rcontraseña&a=actualizar_contraseña',
+                                                data: formData,
+                                                dataType: 'json',
+                                                success: function(response) {
+                                                    if (response.status === 'success') {
+                                                        // La actualización de la contraseña fue exitosa
+                                                        Swal.fire({
+                                                            title: 'Éxito',
+                                                            text: '¡Actualización de contraseña exitosa!',
+                                                            icon: 'success'
+                                                        }).then((result) => {
+                                                            // Redirige a index.php después de hacer clic en OK en la alerta
+                                                            window.location.href = 'index.php';
+                                                        });
+                                                    } else {
+                                                        // La actualización de la contraseña no fue exitosa
+                                                        Swal.fire({
+                                                            title: 'Error',
+                                                            text: response.message,
+                                                            icon: 'error'
+                                                        });
+                                                    }
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    // Ocurrió un error en la solicitud AJAX
+                                                    console.error('Error en la solicitud AJAX: ' + error);
+                                                    // Muestra una alerta de error genérica
+                                                    Swal.fire({
+                                                        title: 'Error',
+                                                        text: 'Hubo un error al actualizar la contraseña. Por favor, inténtelo de nuevo más tarde.',
+                                                        icon: 'error'
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+
+
+
                             </div>
                             <!--end::Content-->
                         </div>
@@ -154,334 +216,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::App-->
 
     <!--begin::Modal - Offer A Deal-->
-    <div class="modal fade" id="kt_modal_offer_a_deal" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-1000px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header py-7 d-flex justify-content-between">
-                    <!--begin::Modal title-->
-                    <h2>Agrega una nueva sede</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <i class="ki-outline ki-cross fs-1"></i>
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--begin::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y m-5">
-                    <!--begin::Stepper-->
-                    <div class="stepper stepper-links d-flex flex-column" id="kt_modal_offer_a_deal_stepper">
-                        <!--begin::Content-->
-                        <div id="kt_account_settings_profile_details" class="collapse show">
-                            <!--begin::Form-->
-                            <form id="kt_account_profile_details_form" class="form" action="?c=sedes&a=nueva_sede" method="post">
-                                <!--begin::Card body-->
-                                <div class="card-body border-top p-9">
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Identificador</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="matricula" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
 
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nombre de la Sede</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="nombre_sede" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Dirrección</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="direccion" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Correo o contacto</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="correo" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Telefono</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="telefono" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required maxlength="10" />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                            <span class="required">Tipo de sede</span>
-                                            <span class="ms-1" data-bs-toggle="tooltip" title="Country of origination">
-                                                <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
-                                            </span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8 fv-row">
-                                            <!--begin::Input-->
-                                            <select name="tiposede" aria-label="Seleccione un periodo" data-control="select2" data-placeholder="Seleccione un periodo..." class="form-select form-select-solid form-select-lg">
-                                                <option value="">Seleccione una opcion...</option>
-                                                <option value="Publica">Publica</option>
-                                                <option value="Privada">Privada</option>
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Contraseña</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="password" name="contraseña" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nombre del encargado de la sede:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="nombre" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido paterno:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="apellidop" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Apellido materno:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="text" name="apellidom" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6" style="margin-left:250px;">
-                                        <!--begin::Label-->
-                                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">logo (opcional):</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="col-lg-8">
-                                            <!--begin::Row-->
-                                            <div class="row">
-                                                <!--begin::Col-->
-                                                <div class="col-lg-6 fv-row">
-                                                    <input type="file" name="logo" id="logo" accept="image/*" onchange="mostrarVistaPrevia(event)">
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-                                            <!--end::Row-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <!--end::Input group-->
-
-
-                                    <div class="row mb-6" style="margin-left:330px;">
-                                        <style>
-                                            #vistaPrevia {
-                                                display: none;
-                                                border: 2px solid #ccc;
-                                                padding: 5px;
-                                                width: 70%;
-                                                /* Ancho del contenedor */
-                                                max-width: 300px;
-                                                /* Ancho máximo del contenedor para evitar que se expanda demasiado en pantallas grandes */
-                                                height: auto;
-                                                /* Ajusta la altura automáticamente */
-                                            }
-
-                                            #vistaPrevia img {
-                                                width: 100%;
-                                                /* Asegura que la imagen se ajuste al contenedor */
-                                                height: auto;
-                                                /* Mantiene la proporción original de la imagen */
-                                                display: block;
-                                            }
-                                        </style>
-                                        <div id="vistaPrevia"></div>
-
-                                        <script>
-                                            function mostrarVistaPrevia(event) {
-                                                const file = event.target.files[0];
-                                                const vistaPrevia = document.getElementById('vistaPrevia');
-
-                                                if (file) {
-                                                    const lector = new FileReader();
-                                                    lector.onload = function(e) {
-                                                        const imagen = document.createElement('img');
-                                                        imagen.src = e.target.result;
-                                                        vistaPrevia.innerHTML = '';
-                                                        vistaPrevia.appendChild(imagen);
-                                                        vistaPrevia.style.display = 'block'; // Mostrar el marco cuando se carga la imagen
-                                                    }
-                                                    lector.readAsDataURL(file);
-                                                } else {
-                                                    vistaPrevia.innerHTML = 'Vista previa no disponible';
-                                                    vistaPrevia.style.display = 'none'; // Ocultar el marco si no hay imagen
-                                                }
-                                            }
-                                        </script>
-                                    </div>
-                                    <!--end::Input group-->
-
-
-                                </div>
-                                <!--end::Card body-->
-                                <!--begin::Actions-->
-                                <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                    <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Guardar</button>
-                                </div>
-                                <!--end::Actions-->
-                            </form>
-                            <!--end::Form-->
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Stepper-->
-                </div>
-                <!--begin::Modal body-->
-            </div>
-        </div>
-    </div>
     <!--end::Modal - Offer A Deal-->
     <!--begin::Javascript-->
     <script>

@@ -3,18 +3,18 @@ session_start(); // Asegúrate de iniciar la sesión en cada vista que utilice s
 
 // Verifica si la variable de sesión existe antes de mostrarla
 if (isset($_SESSION['id_usuario']) || isset($_SESSION['name'])) {
-	$idUsuario = $_SESSION['id_usuario'];
-	$name = $_SESSION['name'];
-	if ($name == 'Vinculacion') {
-	} else {
-		// Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
-		header('location: index.php');
-		exit; // Detener la ejecución del script
-	}
+    $idUsuario = $_SESSION['id_usuario'];
+    $name = $_SESSION['name'];
+    if ($name == 'Vinculacion') {
+    } else {
+        // Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
+        header('location: index.php');
+        exit; // Detener la ejecución del script
+    }
 } else {
-	// Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
-	header('location: index.php');
-	exit; // Detener la ejecución del script
+    // Si no existe la variable de sesión, puede redirigir al usuario a la página de inicio de sesión o realizar otra acción.
+    header('location: index.php');
+    exit; // Detener la ejecución del script
 }
 ?>
 <!DOCTYPE html>
@@ -60,6 +60,7 @@ License: For each use you must have a valid license purchased only from above li
     <script>
         // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -157,16 +158,16 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Nav item-->
 
                                             <!--begin::Nav item-->
-											<li class="nav-item mt-2">
-												<a class="nav-link text-active-primary ms-0 me-10 py-5" href="?c=carreras&a=index_">PTC</a>
-											</li>
-											<!--end::Nav item-->
+                                            <li class="nav-item mt-2">
+                                                <a class="nav-link text-active-primary ms-0 me-10 py-5" href="?c=carreras&a=index_">PTC</a>
+                                            </li>
+                                            <!--end::Nav item-->
 
                                             <!--begin::Nav item-->
-											<li class="nav-item mt-2">
-												<a class="nav-link text-active-primary ms-0 me-10 py-5" href="?c=vinculacion&a=index_">Validación de documentos</a>
-											</li>
-											<!--end::Nav item-->
+                                            <li class="nav-item mt-2">
+                                                <a class="nav-link text-active-primary ms-0 me-10 py-5" href="?c=vinculacion&a=index_">Validación de documentos</a>
+                                            </li>
+                                            <!--end::Nav item-->
                                         </ul>
                                         <!--begin::Navs-->
                                     </div>
@@ -186,7 +187,7 @@ License: For each use you must have a valid license purchased only from above li
                                     <!--begin::Content-->
                                     <div id="kt_account_settings_profile_details" class="collapse show">
                                         <!--begin::Form-->
-                                        <form action="?c=vacantes&a=new_vacante" method="post">
+                                        <form id="kt_new_vacante_form">
 
                                             <!--begin::Card body-->
                                             <div class="card-body border-top p-9">
@@ -370,6 +371,61 @@ License: For each use you must have a valid license purchased only from above li
                                             <!--end::Actions-->
                                         </form>
                                         <!--end::Form-->
+                                        <script>
+                                            $(document).ready(function() {
+                                                $('#kt_new_vacante_form').submit(function(event) {
+                                                    event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                                                    // Obtener los datos del formulario
+                                                    var formData = new FormData(this);
+
+                                                    // Enviar la solicitud AJAX al servidor
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '?c=vacantes&a=new_vacante',
+                                                        data: formData,
+                                                        dataType: 'json',
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function(response) {
+                                                            if (response.status === 'success') {
+                                                                // Mostrar mensaje de éxito con SweetAlert
+                                                                Swal.fire({
+                                                                    title: 'Éxito',
+                                                                    text: response.message,
+                                                                    icon: 'success'
+                                                                }).then((result) => {
+                                                                    // Redireccionar después de mostrar el mensaje de éxito
+                                                                    window.location.href = 'index.php?c=vacantes&a=index_2';
+                                                                });
+                                                            } else {
+                                                                // Mostrar mensaje de error con SweetAlert
+                                                                Swal.fire({
+                                                                    title: 'Error',
+                                                                    text: response.message,
+                                                                    icon: 'error'
+                                                                }).then((result) => {
+                                                                    // Redireccionar después de mostrar el mensaje de error
+                                                                    window.location.href = 'index.php?c=vacantes&a=index_2';
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function(xhr, status, error) {
+                                                            // Mostrar mensaje de error en caso de falla de la solicitud AJAX
+                                                            Swal.fire({
+                                                                title: 'Error',
+                                                                text: 'Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.',
+                                                                icon: 'error'
+                                                            }).then((result) => {
+                                                                // Redireccionar después de mostrar el mensaje de error de la solicitud AJAX
+                                                                window.location.href = 'index.php?c=vacantes&a=index_2';
+                                                            });
+                                                        }
+                                                    });
+
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                     <!--end::Content-->
                                 </div>

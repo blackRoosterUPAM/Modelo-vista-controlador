@@ -38,21 +38,21 @@ class UsuarioModel
     public function new_usuario($matricula, $correo, $contraseña, $idRol, $nombre, $apellidop, $apellidom)
     {
         if (empty($matricula) || empty($correo) || empty($contraseña) || empty($idRol) || empty($nombre) || empty($apellidop) || empty($apellidom)) {
-            echo "<script>alert('Llena correctamente todos los campos');</script>";
+            return array('status' => 'error', 'message' => 'Llena correctamente todos los campos');
         } else {
             // Verificar si la matrícula ya existe
             $matriculaExistente = $this->verificarMatriculaExistente($matricula);
 
             if ($matriculaExistente) {
-                echo "<script>alert('La matrícula ya existe');</script>";
+                return array('status' => 'error', 'message' => 'La matrícula ya existe');
             } else {
                 $con_MD5 = md5($contraseña);
                 $query = mysqli_query($this->db, "INSERT INTO usuarios (IdUsuario, CorreoE, Contraseña, IdRol, NombreU, APaternoU, AMaternoU) VALUES ('$matricula', '$correo', '$con_MD5', $idRol, '$nombre', '$apellidop', '$apellidom')");
 
                 if ($query) {
-                    echo "<script>alert('Usuario registrado correctamente');</script>";
+                    return array('status' => 'success', 'message' => 'Usuario registrado correctamente');
                 } else {
-                    echo "<script>alert('Hubo un problema al insertar al usuario');</script>";
+                    return array('status' => 'error', 'message' => 'Hubo un problema al insertar al usuario');
                 }
             }
         }

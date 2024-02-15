@@ -15,8 +15,8 @@
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -91,46 +91,53 @@
                         <div class="d-flex flex-column flex-column-fluid">
                             <!--begin::Content-->
                             <div id="kt_app_content" class="app-content">
-                            <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-									<!--begin::Input group-->
-									<div class="row mb-6">
-										<div class="d-flex my-4">
-											<label class="col-lg-4 col-form-label fw-semibold fs-6">
-												<span>Buscar:</span>
-											</label>
-											<input type="text" id="busqueda" name="busqueda" class="form-control bg-transparent" required style="width: 70%; margin-left: -18%;">
-											<button type="button" id="buscarDatos" class="btn btn-sm btn-primary me-3" style="margin-left: 2%;">Buscar</button>
-										</div>
-									</div>
-								</div>
+                                <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                                    <!--begin::Input group-->
+                                    <div class="row mb-6">
+                                        <div class="d-flex my-4">
+                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                                <span>Buscar:</span>
+                                            </label>
+                                            <input type="text" id="busqueda" name="busqueda" class="form-control bg-transparent" required style="width: 70%; margin-left: -18%;">
+                                            <button type="button" id="buscarDatos" class="btn btn-sm btn-primary me-3" style="margin-left: 2%;">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-								<script>
-									// Cuando se hace clic en el botón "Buscar", hacer una solicitud AJAX para obtener los datos de los alumnos
-									$('#buscarDatos').click(function() {
-										var searchText = $('#busqueda').val();
+                                <script>
+                                    // Cuando se hace clic en el botón "Buscar", hacer una solicitud AJAX para obtener los datos de los alumnos
+                                    $('#buscarDatos').click(function() {
+                                        var searchText = $('#busqueda').val();
 
-										// Verificar si se ha ingresado un texto de búsqueda
-										if (searchText !== '') {
-											// Realizar una solicitud AJAX al servidor para obtener los datos de los alumnos
-											$.ajax({
-												url: "index.php?c=estad&a=mostrar_busqueda", // Reemplaza 'buscar_alumnos.php' con la ruta correcta a tu archivo PHP que realiza la búsqueda
-												method: 'POST',
-												data: {
-													busqueda: searchText
-												},
-												success: function(response) {
-													// Rellenar la tabla de alumnos con los datos recibidos
-													$('#alumnos').html(response);
-												},
-												error: function(xhr, status, error) {
-													console.error(error);
-												}
-											});
-										} else {
-											alert("Por favor, ingresa un texto de búsqueda antes de buscar.");
-										}
-									});
-								</script>
+                                        // Verificar si se ha ingresado un texto de búsqueda
+                                        if (searchText !== '') {
+                                            // Realizar una solicitud AJAX al servidor para obtener los datos de los alumnos
+                                            $.ajax({
+                                                url: "index.php?c=estad&a=mostrar_busqueda", // Reemplaza 'buscar_alumnos.php' con la ruta correcta a tu archivo PHP que realiza la búsqueda
+                                                method: 'POST',
+                                                data: {
+                                                    busqueda: searchText
+                                                },
+                                                success: function(response) {
+                                                    // Rellenar la tabla de alumnos con los datos recibidos
+                                                    $('#alumnos').html(response);
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error(error);
+                                                }
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                title: 'Error',
+                                                text: 'Por favor, ingresa un texto de búsqueda antes de buscar.',
+                                                icon: 'error'
+                                            }).then((result) => {
+                                                // Redireccionar después de mostrar el mensaje de error
+                                                window.location.href = 'index.php?c=estad&a=index';
+                                            });
+                                        }
+                                    });
+                                </script>
 
                                 <!--begin::Referred users-->
                                 <div class="card">
@@ -235,7 +242,7 @@
                         <!--begin::Content-->
                         <div id="kt_account_settings_profile_details" class="collapse show">
                             <!--begin::Form-->
-                            <form id="kt_account_profile_details_form" class="form" action="?c=estad&a=nuevo_usuario" method="post" enctype="multipart/form-data">
+                            <form id="kt_account_profile_details_form">
                                 <!--begin::Card body-->
                                 <div class="card-body border-top p-9">
                                     <!--begin::Input group-->
@@ -398,6 +405,60 @@
                                 </div>
                                 <!--end::Actions-->
                             </form>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#kt_account_profile_details_form').submit(function(event) {
+                                        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                                        // Obtener los datos del formulario
+                                        var formData = new FormData(this);
+
+                                        // Enviar la solicitud AJAX al servidor
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '?c=estad&a=nuevo_usuario',
+                                            data: formData,
+                                            dataType: 'json',
+                                            processData: false,
+                                            contentType: false,
+                                            success: function(response) {
+                                                // Mostrar mensaje de éxito o error según la respuesta del servidor
+                                                if (response.status === 'success') {
+                                                    Swal.fire({
+                                                        title: 'Éxito',
+                                                        text: response.message,
+                                                        icon: 'success'
+                                                    }).then((result) => {
+                                                        // Redireccionar o realizar otras acciones después del éxito
+                                                        window.location.href = 'index.php?c=estad&a=index';
+                                                    });
+                                                } else {
+                                                    Swal.fire({
+                                                        title: 'Error',
+                                                        text: response.message,
+                                                        icon: 'error'
+                                                    }).then((result) => {
+                                                        // Redireccionar o realizar otras acciones después del éxito
+                                                        window.location.href = 'index.php?c=estad&a=index';
+                                                    });
+                                                }
+                                            },
+                                            error: function(xhr, status, error) {
+                                                // Mostrar mensaje de error en caso de error de la solicitud AJAX
+                                                Swal.fire({
+                                                    title: 'Error',
+                                                    text: 'Hubo un error al procesar la solicitud. Por favor, inténtelo de nuevo más tarde.',
+                                                    icon: 'error'
+                                                }).then((result) => {
+                                                    // Redireccionar o realizar otras acciones después del éxito
+                                                    window.location.href = 'index.php?c=estad&a=index';
+                                                });
+                                            }
+                                        });
+
+                                    });
+                                });
+                            </script>
                             <!--end::Form-->
                         </div>
                         <!--end::Content-->

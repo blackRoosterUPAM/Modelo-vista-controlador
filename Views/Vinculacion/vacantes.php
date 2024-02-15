@@ -104,17 +104,17 @@ License: For each use you must have a valid license purchased only from above li
 					<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex align-items-start">
 						<!--begin::Toolbar container-->
 						<div class="d-flex flex-column flex-row-fluid">
-						<div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-4 gap-lg-10 pt-6 pb-18 py-lg-13">
-                                <!--begin::Page title-->
-                                <div class="page-title d-flex align-items-center me-3">
-                                    <img alt="Logo" src="assets/media/svg/misc/layer.svg" class="h-60px me-5" />
-                                    <!--begin::Title-->
-                                    <h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">Vacantes</h1>
+							<div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-4 gap-lg-10 pt-6 pb-18 py-lg-13">
+								<!--begin::Page title-->
+								<div class="page-title d-flex align-items-center me-3">
+									<img alt="Logo" src="assets/media/svg/misc/layer.svg" class="h-60px me-5" />
+									<!--begin::Title-->
+									<h1 class="page-heading d-flex text-white fw-bolder fs-2 flex-column justify-content-center my-0">Vacantes</h1>
 
-                                    <!--end::Title-->
-                                </div>
-                            </div>
-                            <!--end::Toolbar wrapper=-->
+									<!--end::Title-->
+								</div>
+							</div>
+							<!--end::Toolbar wrapper=-->
 						</div>
 						<!--end::Toolbar container=-->
 					</div>
@@ -174,45 +174,52 @@ License: For each use you must have a valid license purchased only from above li
 								<!--end::Navbar-->
 
 								<div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                                    <!--begin::Input group-->
-                                    <div class="row mb-6">
-                                        <div class="d-flex my-4">
-                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                                <span>Buscar:</span>
-                                            </label>
-                                            <input type="text" id="busqueda" name="busqueda" class="form-control bg-transparent" required style="width: 70%; margin-left: -18%;">
-                                            <button type="button" id="buscarDatos" class="btn btn-sm btn-primary me-3" style="margin-left: 2%;">Buscar</button>
-                                        </div>
-                                    </div>
-                                </div>
+									<!--begin::Input group-->
+									<div class="row mb-6">
+										<div class="d-flex my-4">
+											<label class="col-lg-4 col-form-label fw-semibold fs-6">
+												<span>Buscar:</span>
+											</label>
+											<input type="text" id="busqueda" name="busqueda" class="form-control bg-transparent" required style="width: 70%; margin-left: -18%;">
+											<button type="button" id="buscarDatos" class="btn btn-sm btn-primary me-3" style="margin-left: 2%;">Buscar</button>
+										</div>
+									</div>
+								</div>
 
-                                <script>
-                                    // Cuando se hace clic en el botón "Buscar", hacer una solicitud AJAX para obtener los datos de los alumnos
-                                    $('#buscarDatos').click(function() {
-                                        var searchText = $('#busqueda').val();
+								<script>
+									// Cuando se hace clic en el botón "Buscar", hacer una solicitud AJAX para obtener los datos de los alumnos
+									$('#buscarDatos').click(function() {
+										var searchText = $('#busqueda').val();
 
-                                        // Verificar si se ha ingresado un texto de búsqueda
-                                        if (searchText !== '') {
-                                            // Realizar una solicitud AJAX al servidor para obtener los datos de los alumnos
-                                            $.ajax({
-                                                url: "index.php?c=vacantes&a=mostrar_busqueda", // Reemplaza 'buscar_alumnos.php' con la ruta correcta a tu archivo PHP que realiza la búsqueda
-                                                method: 'POST',
-                                                data: {
-                                                    busqueda: searchText
-                                                },
-                                                success: function(response) {
-                                                    // Rellenar la tabla de alumnos con los datos recibidos
-                                                    $('#alumnos').html(response);
-                                                },
-                                                error: function(xhr, status, error) {
-                                                    console.error(error);
-                                                }
-                                            });
-                                        } else {
-                                            alert("Por favor, ingresa un texto de búsqueda antes de buscar.");
-                                        }
-                                    });
-                                </script>
+										// Verificar si se ha ingresado un texto de búsqueda
+										if (searchText !== '') {
+											// Realizar una solicitud AJAX al servidor para obtener los datos de los alumnos
+											$.ajax({
+												url: "index.php?c=vacantes&a=mostrar_busqueda", // Reemplaza 'buscar_alumnos.php' con la ruta correcta a tu archivo PHP que realiza la búsqueda
+												method: 'POST',
+												data: {
+													busqueda: searchText
+												},
+												success: function(response) {
+													// Rellenar la tabla de alumnos con los datos recibidos
+													$('#alumnos').html(response);
+												},
+												error: function(xhr, status, error) {
+													console.error(error);
+												}
+											});
+										} else {
+											Swal.fire({
+												title: 'Error',
+												text: 'Por favor, ingresa un texto de búsqueda antes de buscar.',
+												icon: 'error'
+											}).then((result) => {
+												// Redireccionar después de mostrar el mensaje de error
+												window.location.href = 'index.php?c=vacantes&a=index_2';
+											});
+										}
+									});
+								</script>
 
 								<div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
 									<!--begin::Input group-->
@@ -320,7 +327,14 @@ License: For each use you must have a valid license purchased only from above li
 																}
 															});
 														} else {
-															alert("Por favor, selecciona una carrera antes de mostrar los datos.");
+															Swal.fire({
+																title: 'Error',
+																text: 'Selecciona una carrera',
+																icon: 'error'
+															}).then((result) => {
+																// Redireccionar después de mostrar el mensaje de error
+																window.location.href = 'index.php?c=vacantes&a=index_2';
+															});
 														}
 													});
 												</script>
